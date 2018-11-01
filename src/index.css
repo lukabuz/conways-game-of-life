@@ -16,8 +16,8 @@ code {
 
 .App {
   display: grid;
-  grid-template-columns: repeat(20, 30px);
-  grid-template-rows: repeat(20, 30px);
+  grid-template-columns: repeat(20, 10px);
+  grid-template-rows: repeat(20, 10px);
 }
 
 .App div {
