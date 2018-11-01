@@ -1,25 +1,59 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import CellRow from "./Components/CellRow";
 
 class App extends Component {
+  sideLength = 20;
+
+  state = {
+    matrix : []
+  }
+
+  componentWillMount() {
+		this.setState({
+      matrix : this.makeMatrix(this.sideLength)
+    });
+	}
+
+  step = (newMatrix) => {
+
+  }
+
+  makeMatrix = (sideLength) => {
+    let matrix = [];
+    for(let i = 0; i < sideLength; i++){
+      matrix[i] = [];
+      for(let j = 0; j < sideLength; j++){
+        matrix[i][j] = {
+          alive : false,
+          i: i,
+          j: j
+        };
+      }
+    }
+
+    return matrix;
+  }
+
+  handleClick = (cell) => {
+    console.log(cell);
+    let matrix = this.state.matrix;
+    matrix[cell.i][cell.j].alive = !matrix[cell.i][cell.j].alive;
+    this.setState({
+      matrix: matrix
+    });
+  }
+
   render() {
+    let divs = this.state.matrix.map((row) => {
+        return(
+          <CellRow handleClick={this.handleClick} row={row}></CellRow>
+        );
+    });
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {divs}
       </div>
     );
   }
